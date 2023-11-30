@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package messenger;
+
+
+service Messenger {
+
+	rpc SimpleResponse (Request) returns (Response);
+
+	rpc StreamingResponse (Request) returns (stream Response);
+
+	rpc RequestStreaming (stream Request) returns (DelayedResponse);
+
+	rpc BidirectionallyStreaming (stream Request) returns (stream Response);
+}
+
+message Request {
+  string message = 1;
+}
+
+message Response {
+  string message = 1;
+}
+
+message DelayedResponse {
+	string message = 1;
+	repeated Request request = 2;
+}
